@@ -14,7 +14,7 @@ const BookHistory = () => {
   }, []);
   return (
     <>
-      <div style={{ minHeight: '550px' }}></div>
+      <div style={{ minHeight: '550px' }} />
       <ModalBody>
         <ModalContent>
           <BookingCheck>예매내역 확인</BookingCheck>
@@ -102,12 +102,6 @@ const ModalContent = styled.div`
   }
 `;
 
-const CloseBtn = styled.span`
-  cursor: pointer;
-  background: none;
-  font-size: 20px;
-`;
-
 const BookingCheck = styled.div`
   color: #fff;
   background-color: #333333;
@@ -148,9 +142,7 @@ const MovieRegion = styled.div`
 const MovieBranch = styled.div`
   font-size: 18px;
 `;
-const MovieRooms = styled.div`
-  font-size: 18px;
-`;
+
 const MovieData = styled.div`
   font-size: 18px;
 `;
@@ -175,12 +167,6 @@ const LastPayBotton = styled.button`
   outline: 0;
   border-radius: 20px;
   margin-top: 30px;
-`;
-
-const CloseBtnBody = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
 `;
 
 const MovieBody = styled.div`

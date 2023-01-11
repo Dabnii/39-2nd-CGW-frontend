@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,33 +8,21 @@ import Navbar from 'react-bootstrap/Navbar';
 import styled, { keyframes } from 'styled-components';
 
 function NavMenu() {
-  // const [movieList, setMovieList] = useState([]);
   const [inputState, setInputState] = useState('');
   const [showList, setShowList] = useState(false);
-  // const remove = localStorage.removeItem('token');
-  const params = useParams();
-  const id = params.id;
 
-  const [movieList, setmMovieList] = useState([]);
+  const [movieList, setMovieList] = useState([]);
 
   useEffect(() => {
     fetch('http://10.58.52.204:3000/movies', {
       method: 'GET',
     })
       .then(response => response.json())
-      .then(data => setmMovieList(data));
+      .then(data => setMovieList(data));
   }, []);
-  // useEffect(() => {
-  //   fetch('http://10.58.52.67:3000/movies', {
-  //     method: 'GET',
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => setMovieList(data));
-  // }, []);
 
   return (
     <Navbar bg="light" expand="lg">
-      {/* onClick={() => setInputState('')} */}
       <Container fluid style={{ width: '90%', height: '80px' }}>
         <StyledLink to="/">
           <Navbar.Brand
@@ -218,8 +206,5 @@ const BookNow = styled.button`
   font-weight: 600;
   border-radius: 5px;
 `;
-const NotFoundText = styled.p`
-  font-size: 20px;
-  display: flex;
-`;
+
 export default NavMenu;

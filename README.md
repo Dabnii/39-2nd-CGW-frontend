@@ -2,10 +2,12 @@
 
 <p align="center"> 📆 2022.11.28~ 12.9
 
-<br>
-<br>
-<br>
-  
+> 💡 How to install CGW
+
+```
+$ npm install --force
+```
+
 <img width="1386px" alt="CGW main" align="center" src="https://user-images.githubusercontent.com/110847597/206863973-b5dc727d-037f-4ce5-9c9e-feb21622a4bc.gif"/>
 
 <br>
@@ -190,7 +192,7 @@
 ```jsx
 //after
 const deleteObj = () => {
-  setSelectList({ place: "", day: "", time: "" });
+  setSelectList({ place: '', day: '', time: '' });
 };
 
 //before

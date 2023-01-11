@@ -1,18 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import Modal from './component/Modal';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import BookHistory from './BookHistory';
+import { Link } from 'react-router-dom';
 
 const Payment = () => {
   const [movieInfo, setMovieInfo] = useState({});
   const [isOpenModal, setIsOpenModal] = useState(false);
   const num = localStorage.getItem('num');
   const price = Number(localStorage.getItem('price'));
-
-  const openModal = () => {
-    setIsOpenModal(!isOpenModal);
-  };
 
   useEffect(() => {
     if (localStorage.getItem('paymentSuccess')) {
@@ -121,8 +116,6 @@ const Payment = () => {
         </CouponContainerEnd>
       </CouponContainerBox>
       <PayBotton onClick={payClick}>결제하기</PayBotton>
-      {/* <BookHistory /> */}
-      {/* {isOpenModal && <Modal openModal={openModal} />} */}
     </PaymentContainer>
   );
 };

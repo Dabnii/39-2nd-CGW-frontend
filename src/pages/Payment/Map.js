@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { memo, useEffect, useRef, useState } from 'react';
 import {
   DirectionsRenderer,
@@ -30,7 +31,6 @@ const Directions = ({ origin, destination }) => {
   }, [origin.lat, origin.lng, destination.lat, destination.lng]);
 
   const directionsCallback = (result, status) => {
-    console.log(status);
     if (status === 'OK' && count.current === 0) {
       count.current += 1;
       setDirections(result);

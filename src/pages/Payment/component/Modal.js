@@ -155,12 +155,6 @@ const LastPayBotton = styled.button`
   margin-top: 10px;
 `;
 
-const CloseBtnBody = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-`;
-
 const MovieBody = styled.div`
   display: flex;
   flex-flow: row nowrap;

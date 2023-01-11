@@ -1,5 +1,7 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BookB from './BookB';
 import Calendar from 'react-calendar';
 import styled, { keyframes } from 'styled-components';
@@ -14,7 +16,7 @@ const BookARsv = ({ params }) => {
   const [filterData, setFilterData] = useState([]);
   const token = localStorage.getItem('token');
 
-  const IP = 'http://10.58.52.204:3000/times';
+  const IP = 'http://10.58.52.204:3000';
   const navigate = useNavigate();
 
   const goLogin = () => {
@@ -31,7 +33,7 @@ const BookARsv = ({ params }) => {
   const { place, time, day } = selectList;
 
   const onChangeData = e => {
-    const { name, value, id } = e.target;
+    const { name, id } = e.target;
     setSelectList(prev => ({ ...prev, [name]: id }));
     if (name === 'place') {
       fetch(`${IP}/${params}/${id}`)
@@ -51,45 +53,40 @@ const BookARsv = ({ params }) => {
     let year = date.getFullYear();
     let month = ('0' + (1 + date.getMonth())).slice(-2);
     let day = ('0' + date.getDate()).slice(-2);
-    const test = year + '.' + month + '.' + day;
-    setUserSelect(test);
-    setSelectList(prev => ({ ...prev, day: test }));
+    const originDay = year + '.' + month + '.' + day;
+    setUserSelect(originDay);
+    setSelectList(prev => ({ ...prev, day: originDay }));
   };
 
   //영화장소 fetch
   useEffect(() => {
-    fetch('http://10.58.52.204:3000/locations/lists')
-      // fetch('/data/moviePlaceData.json')
-      .then(res => res.json())
+    // fetch(`${Input}/lists`);
+    fetch('/data/moviePlaceData.json')
+      .then(res => {
+        if (res.ok === true) {
+          return res.json();
+        }
+        throw new Error('에러발생');
+      })
       .then(data => {
         setMovieData(data);
-      });
+      })
+      .catch(error => console.log(error));
   }, []);
 
-  // useEffect(() => {
-  //   fetch('http://10.58.52.204:3000/locations/lists')
-  //     // fetch('/data/movieTimeData.json')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setGetMovieTime(data);
-  //     });
-  // }, [userSelect]);
-
-  const a = () => {
+  const convertTimeData = () => {
     const selDayId = getMovieTime.map((el, i) => {
       if (el.name === selectList.day) {
         return el.id;
       }
     });
     const selectDayId = selDayId.filter(el => el !== undefined);
-    const a = getMovieTime.map((el, i) => {
-      if (el.name === selectList.day) {
-        return i;
-      }
+    const dupeMovieTime = getMovieTime.map((el, i) => {
+      if (el.name === selectList.day) return i;
     });
-    const selectIdx = a.filter(el => el !== undefined);
-    const arr = getMovieTime[Number(selectIdx.join(''))];
-    const selectTimeId = arr.time.map(el => {
+    const selectIdx = dupeMovieTime.filter(el => el !== undefined);
+    const dupeMovieTimeArr = getMovieTime[Number(selectIdx.join(''))];
+    const selectTimeId = dupeMovieTimeArr.time.map(el => {
       if (el.time === selectList.time) {
         return el.time_id;
       }
@@ -100,10 +97,16 @@ const BookARsv = ({ params }) => {
         selectDayId.join('')
       )}/${Number(selectTimeId.join(''))}`
     )
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok === true) {
+          return res.json();
+        }
+        throw new Error('에러발생');
+      })
       .then(data => {
         setFilterData(data);
-      });
+      })
+      .catch(error => console.log(error));
   };
 
   if (!movieData) return null;
@@ -156,7 +159,6 @@ const BookARsv = ({ params }) => {
                 value={value}
                 onChange={changeDate}
                 minDate={new Date()}
-                maxDate={new Date(2022, 11, 16)}
                 minDetail="year"
               />
             ) : (
@@ -223,7 +225,7 @@ const BookARsv = ({ params }) => {
           <SeatButton
             onClick={() => {
               setShowSeat(true);
-              a();
+              convertTimeData();
             }}
           >
             좌석 선택
@@ -402,6 +404,7 @@ const CalendarContainer = styled.div`
     .react-calendar__tile:enabled:hover,
     .react-calendar__tile:enabled:focus {
       border-radius: 30px;
+      background: #fb4357;
     }
 
     .react-calendar__tile--now {
@@ -417,7 +420,7 @@ const CalendarContainer = styled.div`
     .react-calendar__tile--now:enabled:hover,
     .react-calendar__tile--now:enabled:focus {
       background: #fb4357;
-      color: white;
+      /* color: white; */
     }
     .react-calendar__navigation button:disabled {
       background-color: white;

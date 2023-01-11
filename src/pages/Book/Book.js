@@ -5,19 +5,25 @@ import BookARsv from './BookARsv';
 import styled from 'styled-components';
 
 const Book = () => {
-  const [movieData, setMovieData] = useState({});
+  const [movieData, setMovieData] = useState([]);
 
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
+  //영화 제목&평점 fetch
   useEffect(() => {
-    // fetch('/data/movieData.json')
-    fetch(`http://10.58.52.204:3000/times/${id}`)
-      .then(res => res.json())
+    fetch('/data/movieData.json')
+      // fetch(`http://10.58.52.204:3000/times/${id}`)
+      .then(res => {
+        if (res.ok === true) {
+          return res.json();
+        }
+        throw new Error('에러발생');
+      })
       .then(data => {
-        setMovieData(data);
-      });
+        setMovieData(data[0]);
+      })
+      .catch(error => console.log(error));
   }, []);
 
   if (!movieData) return null;
@@ -26,15 +32,15 @@ const Book = () => {
     <BookAWrapper>
       <MovieContainer>
         <ThumbFrame>
-          <ThumbNails src={movieData[0]?.thumbnail} alt="thumb nail" />
+          <ThumbNails src={movieData.thumbnail} alt="thumb nail" />
         </ThumbFrame>
         <MovieInfo>
-          <MovieTitle>{movieData[0]?.title}</MovieTitle>
-          <Age>{movieData[0]?.ageLimit}세 이상 관람가</Age>
+          <MovieTitle>{movieData.title}</MovieTitle>
+          <Age>{movieData.ageLimit}세 이상 관람가</Age>
           <MovieScore>
             <ReactStars
               className="ReactStarts"
-              value={movieData[0]?.rate}
+              value={movieData.rate}
               edit={false}
             />
           </MovieScore>

@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
+import React from 'react';
 
 const NaverLogin = () => {
   const { naver } = window;
@@ -34,12 +36,10 @@ const NaverLogin = () => {
     }
   };
 
-  // useEffect(() => {
   Naver();
   UserProfile();
-  // }, []);
 
-  return <p>hi</p>;
+  return <p>Naver login page</p>;
 };
 
 export default NaverLogin;

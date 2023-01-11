@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,20 +6,9 @@ const BookB = ({ setShowSeat, filterData, movieData }) => {
   const [numAdult, setNumAdult] = useState(0);
   const [numTeenager, setNumTeenager] = useState(0);
   const [select, setSelect] = useState([]);
-  const [reserved, setReserved] = useState();
   const totalPrice = 14000 * numAdult + 11000 * numTeenager;
   const totalNum = numAdult + numTeenager;
   const navigate = useNavigate();
-
-  console.log(totalPrice);
-
-  // useEffect(() => {
-  //   fetch('/data/reservedSeat.json')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setReserved(data);
-  //     });
-  // }, []);
 
   const btnAdultMinus = () => {
     if (numAdult) {
@@ -59,21 +48,18 @@ const BookB = ({ setShowSeat, filterData, movieData }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: accessToken,
       },
       body: JSON.stringify({
         movieOption_id: filterData.movieOption_id,
         seat_id: select,
         price_id: 1,
-        // adult: numAdult,
-        // teenager: numTeenager,
       }),
     })
       .then(response => response.json())
       .then(() => {
         if (select.length !== totalNum) {
           alert('인원에 맞게 선택해주세요.');
-        } else if (select.length == 0) {
+        } else if (select.length === 0) {
           alert('인원과 좌석을 선택해주세요.');
         } else {
           localStorage.setItem('price', totalPrice);
@@ -98,11 +84,9 @@ const BookB = ({ setShowSeat, filterData, movieData }) => {
         alert('이미 좌석을 모두 선택하였습니다.');
       }
     } else {
-      setSelect(select.filter(sel => sel != el.id));
+      setSelect(select.filter(sel => sel !== el.id));
     }
   };
-
-  // console.log(select);
 
   return (
     <ModalWrap>
@@ -132,7 +116,6 @@ const BookB = ({ setShowSeat, filterData, movieData }) => {
             <CinemaSeatList>
               {filterData &&
                 filterData.seat.map(el => {
-                  // console.log(el);
                   if (filterData.reserved_seat_id.includes(el.id)) {
                     return (
                       <CinemaCheckbox key={el.id}>
