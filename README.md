@@ -10,6 +10,9 @@ $ npm install --force
 
 <img width="1386px" alt="CGW main" align="center" src="https://user-images.githubusercontent.com/110847597/206863973-b5dc727d-037f-4ce5-9c9e-feb21622a4bc.gif"/>
 
+#### 🏗️ Refactor & edit log
+> ~23.01.11 📆 modified: book codes and fetch fnc
+
 <br>
 
 ## 🏆 CGW Goal
@@ -56,10 +59,8 @@ $ npm install --force
 
 ## 🚀 구현 기능
 
-1. 영화 예매, 영화 검색 🙋‍♀️
-1. 좌석 선택
-1. 소셜 로그인& 지도 API Map 기능
-1. 카카오톡 결제, 예매내역
+1. 영화 예매 🙋‍♀️
+1. 영화 검색 🙋‍♀️
 
 ## 🥳 나의 제작파트
 
@@ -77,8 +78,7 @@ $ npm install --force
 
 1. 밀집도가 높고, 작은 UI를 개선 하여 `예매율 상승` 목적
 1. 브랜드 컬러를 사용한 브랜딩을 통한 `긍정적인 서비스 경험`
-1. 영화 검색 기능 추가로 쉬운 영화 서치 및 `이탈율 감소`
-1. 어렵고, 복잡한 기능을 구현하고 싶은 열정이 있었기에 도전하였습니다.
+1. 영화 검색 기능 추가로 쉬운 영화 서치 및 `이탈율 감소 목적`
 
 ### 👀 나를 성장하게 한 코드 들여다보기
 
